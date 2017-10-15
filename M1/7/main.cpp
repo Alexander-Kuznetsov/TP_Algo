@@ -24,16 +24,12 @@ class Ensemble {
 		~Ensemble() { delete[] players; }
 
 		void resize_array() {
-			Player *tmp = new Player[size];
+			Player *tmp = new Player[size *= 2];
 			for (unsigned i = 0; i < count; ++i) {
 				tmp[i] = players[i];
 			}
 			delete[] players;
-	
-			players = new Player[size *= 2];
-			for (unsigned i = 0; i < count; ++i) {
-				players[i] = tmp[i];
-			}
+			players = tmp;
 		}
 
 		void invite_player(Player player) {

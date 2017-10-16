@@ -22,11 +22,16 @@ void initArr(int *arr, size_t size) {
 
 //бинарный поиск, возвращающий индекс найденного эл-та
 //если эл-т не найден, возвращает индекс предыдущего найденного эл-та
-int binSearch(int *arr, int right, int left, size_t size, int value) {
-	int right = size, mid = 0, tmp = left;
+int binSearch(int *arr, int left, int right, size_t size, int value) {
+	int mid = 0, tmp = left;
 
 	if (!size) {
 		return -1;
+	}
+
+	if (arr[tmp] == value) {
+		std::cout << value << " ";
+		return tmp;
 	}
 
 	while (!(left >= right)) {
@@ -48,22 +53,28 @@ int binSearch(int *arr, int right, int left, size_t size, int value) {
 }
 
 int main() {
-	size_t size1 = 0, size2 = 0, left = 0, right = 0;
+	size_t size1 = 0, size2 = 0;
 	std::cin >> size1 >> size2;
 
 	if (!size1 || !size2) {
 		return 0;
 	}
 
-	int *array1 = new int[size1];
-	int *array2 = new int[size2];
+	int *arr1 = new int[size1];
+	int *arr2 = new int[size2];
 
-	initArr(array1, size1);
-	initArr(array2, size2);
+	initArr(arr1, size1);
+	initArr(arr2, size2);
 
-	for (unsigned i = 0; i < size1; ++i) {
-		
-		left = binSearch(array2, right, left, size2, array1[i]);
+	size_t right = 1;
+	for (unsigned i = 0; i < size1; i++) {
+		while (right < (size2 - 1) && arr2[right] < arr1[i]) {
+			right *= 2;
+			if (right > size2) {
+				right = size2 - 1;
+			}
+		}
+		binSearch(arr2, right / 2, right + 1, size2, arr1[i]);
 	}
 
 	return 0;

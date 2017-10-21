@@ -64,7 +64,6 @@ int main() {
 	initArr(arr1, size1);
 	initArr(arr2, size2);
 
-	size_t right = 1;
 	for (unsigned i = 0; i < size1; i++) {
 		while (right < (size2 - 1) && arr2[right] < arr1[i]) {
 			right *= 2;
@@ -74,6 +73,9 @@ int main() {
 		}
 		binSearch(arr2, right / 2, right + 1, size2, arr1[i]);
 	}
+
+	delete[] arr1;
+	delete[] arr2;
 
 	return 0;
 }
